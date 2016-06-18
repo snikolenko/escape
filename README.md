@@ -9,7 +9,7 @@ This repository contains code for the ESCAPE counter scheme.
 The scripts are intended to compute basic statistics for the ESCAPE counter scheme on CAIDA traces; they reproduce the figures shown in the CoNEXT 2016 submission on ESCAPE.
 
 Before running the scripts, obtain CAIDA traces from 
-http://www.caida.org/data/passive/passive_2016_dataset.xml
+http://www.caida.org/data/passive/passive_2016_dataset.xml.
 
 For each script, run
 
