@@ -11,7 +11,11 @@ The scripts are intended to compute basic statistics for the ESCAPE counter sche
 Before running the scripts, obtain CAIDA traces from 
 http://www.caida.org/data/passive/passive_2016_dataset.xml.
 
-For each script, run
+For each CAIDA trace `trace.pcap.gz`, run the following preprocessing:
+```
+gunzip trace.pcap.gz
+tcpdump -qn -r trace.pcap > trace.txt
+'''
 
 The directory conext2016_scripts contains the following scripts
  
