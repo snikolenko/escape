@@ -16,7 +16,7 @@ lasttimes = load_lasttimes('%s.lasttimes.txt' % in_fname)
 with open('fig7b.%s.csv' % in_trace, 'w') as outf:
 	for polling_rate in POLLING_RATES:
 		my_print("Starting polling rate %d!" % polling_rate)
-		with open(in_fname) as f:
+		with open(sys.argv[1]) as f:
 			flow_counts = Counter()
 			flows = {}
 			max_len_counts = 0

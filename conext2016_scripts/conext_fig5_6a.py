@@ -20,7 +20,7 @@ max_counts = Counter()
 current_deleted = {}
 # kk = ('177.186.72.37.7300', '202.205.213.145.13434:', 'UDP,')
 
-with open(in_fname) as f:
+with open(sys.argv[1]) as f:
 	with open('fig5a.%s.csv' % in_trace, 'w') as outf:
 		cur_packet = get_packet(f.readline())
 		begin_time = 0.0

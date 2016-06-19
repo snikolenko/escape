@@ -49,7 +49,7 @@ def poll_flow(flow):
 	dec_inv(num)
 	del flow_counts[flow]
 
-with open(in_fname) as f:
+with open(sys.argv[1]) as f:
 	cur_packet = get_packet(f.readline())
 	begin_time = 0.0
 	first_packet_num = 0
@@ -66,7 +66,6 @@ with open(in_fname) as f:
 		cur, cur_prev, cur_next = inv_counts.get(num, 0), inv_counts.get(num-1, 0), inv_counts.get(num+1, 0)
 		for s in STATIC_VALUES:
 			total_access_times[s] = total_access_times[s] + access_times(s, num, cur, cur_prev, cur_next)
-			max_memory[s] = max(max_memory[s], memory_escape( s, len([ x for x in inv_counts if x > s ]) ))
 
 		### updating
 		flow_counts[cur_packet[1]] = num+1

@@ -13,8 +13,8 @@ my_print("Loading last flow times from %s.lasttimes.txt..." % in_fname)
 lasttimes = load_lasttimes('%s.lasttimes.txt' % in_fname)
 
 my_print("Reading packets with period %f s..." % (GRAPH_RESOLUTION) )
-with open('fig7a.%s.csv' % infname, 'w') as outf:
-	with open(in_fname) as f:
+with open('fig7a.%s.csv' % in_trace, 'w') as outf:
+	with open(sys.argv[1]) as f:
 		flow_counts = Counter()
 		flows = {}
 		max_len_counts = 0
@@ -36,7 +36,7 @@ with open('fig7a.%s.csv' % infname, 'w') as outf:
 				flow_counts.update(current_counts)
 
 				# polling
-				flows_to_delete = sorted(flows.items(), key=itemgetter(1))[:int(polling_rate * GRAPH_RESOLUTION)]
+				flows_to_delete = sorted(flows.items(), key=itemgetter(1))[:int(POLLING_RATE * GRAPH_RESOLUTION)]
 				for flow in flows_to_delete:
 					del flows[flow[0]]
 					del flow_counts[flow[0]]
@@ -67,7 +67,4 @@ with open('fig7a.%s.csv' % infname, 'w') as outf:
 		outf.flush()
 
 
-my_print("All done!")
-
-
-
+my_print("Done!")
