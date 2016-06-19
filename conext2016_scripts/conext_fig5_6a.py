@@ -4,7 +4,7 @@ from util import *
 STATIC_VALUES = [ 0, 8, 16, 24, 32, 48, 64, 72, 96, 102, 128, 192, 256, 256+128, 512, 756, 1024, 1536, 2048, 3072, 4096 ]
 
 if len(sys.argv) < 2:
-	print("Usage: python3 conext_fig5_6a.py trace")
+	print("Usage: python3 conext_fig5_6a.py trace.txt")
 
 in_trace, in_path, in_fname = parse_trace_filename(sys.argv[1])
 

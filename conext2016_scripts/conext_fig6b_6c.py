@@ -1,10 +1,10 @@
 from util import *
 
+if len(sys.argv) < 2:
+	print("Usage: python3 conext_fig6b_6c.py trace.txt")
+
 ## Values of the static counter 
 STATIC_VALUES = [ 0, 64, 256, 1024, 2048, 4096 ]
-
-if len(sys.argv) < 2:
-	print("Usage: python3 conext_fig6b_6c.py trace")
 
 in_trace, in_path, in_fname = parse_trace_filename(sys.argv[1])
 
@@ -31,35 +31,35 @@ current_deleted = {}
 # kk = ('177.186.72.37.7300', '202.205.213.145.13434:', 'UDP,')
 
 for num_static in STATIC_VALUES:
-	with open('fig4.cnt.dyn.S%d.%s.csv' % (num_static, infname), 'w') as outf:
+	with open('fig6b.dyn.S%d.%s.csv' % (num_static, infname), 'w') as outf:
 		pass
-	with open('fig4.cnt.pfl.S%d.%s.csv' % (num_static, infname), 'w') as outf:
+	with open('fig6b.pfl.S%d.%s.csv' % (num_static, infname), 'w') as outf:
 		pass
-	with open('fig4.mem.dyn.S%d.%s.csv' % (num_static, infname), 'w') as outf:
+	with open('fig6c.dyn.S%d.%s.csv' % (num_static, infname), 'w') as outf:
 		pass
-	with open('fig4.mem.pfl.S%d.%s.csv' % (num_static, infname), 'w') as outf:
+	with open('fig6c.pfl.S%d.%s.csv' % (num_static, infname), 'w') as outf:
 		pass
 
 my_print("Reading packets with period %f s..." % (GRAPH_RESOLUTION) )
-with open('traces/%s.txt' % infname) as f:
+with open(in_fname) as f:
 	cur_packet = get_packet(f.readline())
 	begin_time = 0.0
 	first_packet_num = 0
 	total_deleted = 0
 	first_packet_ts = cur_packet[0]
-	with open('fig4.cnt.base.%s.csv' % (infname), 'a') as outf:
+	with open('fig6b.base.%s.csv' % (infname), 'a') as outf:
 		outf.write( '%f %d\n' % (0.0, 0) )
-	with open('fig4.mem.base.%s.csv' % (infname), 'a') as outf:
+	with open('fig6c.base.%s.csv' % (infname), 'a') as outf:
 		outf.write( '%f %f\n' % (0.0, 0.0) )
 	for num_static in STATIC_VALUES:
 		num_extra_flows = len([x for x,v in flow_counts.items() if v > num_static])
-		with open('fig4.cnt.pfl.S%d.%s.csv' % (num_static, infname), 'a') as outf:
+		with open('fig6b.pfl.S%d.%s.csv' % (num_static, infname), 'a') as outf:
 			outf.write( '%f %d\n' % (0.0, 0) )
-		with open('fig4.mem.base.S%d.%s.csv' % (num_static, infname), 'a') as outf:
+		with open('fig6c.base.S%d.%s.csv' % (num_static, infname), 'a') as outf:
 			outf.write( '%f %f\n' % (0.0, 0.0) )
-		with open('fig4.mem.dyn.S%d.%s.csv' % (num_static, infname), 'a') as outf:
+		with open('fig6c.dyn.S%d.%s.csv' % (num_static, infname), 'a') as outf:
 			outf.write( '%f %f\n' % (0.0, 0.0) )
-		with open('fig4.mem.pfl.S%d.%s.csv' % (num_static, infname), 'a') as outf:
+		with open('fig6c.pfl.S%d.%s.csv' % (num_static, infname), 'a') as outf:
 			outf.write( '%f %f\n' % (0.0, 0.0) )
 	arr_packets = [cur_packet]
 	total_packets = 0
@@ -75,20 +75,20 @@ with open('traces/%s.txt' % infname) as f:
 			total_packets += len(arr_packets)
 			arr_packets = []
 			current_deleted = {}
-			with open('fig4.cnt.base.%s.csv' % (infname), 'a') as outf:
+			with open('fig6b.base.%s.csv' % (infname), 'a') as outf:
 				outf.write( '%f %d\n' % (begin_time, len(flow_counts)) )
-			with open('fig4.mem.base.%s.csv' % (infname), 'a') as outf:
+			with open('fig6c.base.%s.csv' % (infname), 'a') as outf:
 				outf.write( '%f %f\n' % (begin_time, len(flow_counts) * logM / 1024) )
 			for num_static in STATIC_VALUES:
 				num_extra_flows = len([x for x,v in flow_counts.items() if v > num_static])
 				num_extra_counters = len([x for x in all_counters if x > num_static])
-				with open('fig4.cnt.dyn.S%d.%s.csv' % (num_static, infname), 'a') as outf:
+				with open('fig6b.dyn.S%d.%s.csv' % (num_static, infname), 'a') as outf:
 					outf.write( '%f %d\n' % (begin_time, num_static + num_extra_counters) )
-				with open('fig4.cnt.pfl.S%d.%s.csv' % (num_static, infname), 'a') as outf:
+				with open('fig6b.pfl.S%d.%s.csv' % (num_static, infname), 'a') as outf:
 					outf.write( '%f %d\n' % (begin_time, num_static + num_extra_flows) )
-				with open('fig4.mem.dyn.S%d.%s.csv' % (num_static, infname), 'a') as outf:
+				with open('fig6c.dyn.S%d.%s.csv' % (num_static, infname), 'a') as outf:
 					outf.write( '%f %f\n' % (begin_time, memory_escape(num_static, num_extra_counters) ) )
-				with open('fig4.mem.pfl.S%d.%s.csv' % (num_static, infname), 'a') as outf:
+				with open('fig6c.pfl.S%d.%s.csv' % (num_static, infname), 'a') as outf:
 					outf.write( '%f %f\n' % (begin_time, memory_pfl(num_static, num_extra_flows) ) )
 
 		if cur_ts - lasttimes[cur_packet[1]] > -0.000005:
@@ -101,20 +101,20 @@ with open('traces/%s.txt' % infname) as f:
 	flow_counts.update(current_counts)
 	res_total_counters = len(set(flow_counts.values()))
 	my_print("\t[%f] packets %d -- %d, %d flows, %d total, with %d values [deleted %d]" % (begin_time, total_packets, total_packets + len(arr_packets), len(current_counts), len(flow_counts), res_total_counters, total_deleted) )
-	with open('fig4.cnt.base.%s.csv' % (infname), 'a') as outf:
+	with open('fig6b.base.%s.csv' % (infname), 'a') as outf:
 		outf.write( '%f %d\n' % (begin_time, len(flow_counts)) )
-	with open('fig4.mem.base.%s.csv' % (infname), 'a') as outf:
+	with open('fig6c.base.%s.csv' % (infname), 'a') as outf:
 		outf.write( '%f %f\n' % (begin_time, len(flow_counts) * logM / 1024) )
 	for num_static in STATIC_VALUES:
 		num_extra_flows = len([x for x,v in flow_counts.items() if v > num_static])
 		num_extra_counters = len([x for x in all_counters if x > num_static])
-		with open('fig4.cnt.dyn.S%d.%s.csv' % (num_static, infname), 'a') as outf:
+		with open('fig6b.dyn.S%d.%s.csv' % (num_static, infname), 'a') as outf:
 			outf.write( '%f %d\n' % (begin_time, num_static + num_extra_counters) )
-		with open('fig4.cnt.pfl.S%d.%s.csv' % (num_static, infname), 'a') as outf:
+		with open('fig6b.pfl.S%d.%s.csv' % (num_static, infname), 'a') as outf:
 			outf.write( '%f %d\n' % (begin_time, num_static + num_extra_flows) )
-		with open('fig4.mem.dyn.S%d.%s.csv' % (num_static, infname), 'a') as outf:
+		with open('fig6c.dyn.S%d.%s.csv' % (num_static, infname), 'a') as outf:
 			outf.write( '%f %f\n' % (begin_time, memory_escape(num_static, num_extra_counters) ) )
-		with open('fig4.mem.pfl.S%d.%s.csv' % (num_static, infname), 'a') as outf:
+		with open('fig6c.pfl.S%d.%s.csv' % (num_static, infname), 'a') as outf:
 			outf.write( '%f %f\n' % (begin_time, memory_pfl(num_static, num_extra_flows) ) )
 
 my_print("Done!")
